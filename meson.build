@@ -305,6 +305,14 @@ if host_system in ['windows', 'darwin']
   glib_conf.set('BROKEN_POLL', true)
 endif
 
+# Since we cannot use poll() on macOS, expand g_poll capacity by tuning select().
+if host_system == 'darwin'
+  # Increase the number of bits available in fd_sets. (Default: 1024)
+  glib_conf.set('FD_SETSIZE', 4096)
+  # Enable darwin extension that disables enforcement of FD_SETSIZE compiled into libSystem.
+  glib_conf.set('_DARWIN_UNLIMITED_SELECT', true)
+endif
+
 if host_system == 'windows' and cc.get_id() != 'msvc' and cc.get_id() != 'clang-cl'
   # FIXME: Ideally we shouldn't depend on this on Windows and should use
   # 64 bit capable Windows API that also works with MSVC.
