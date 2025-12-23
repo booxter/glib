@@ -58,10 +58,10 @@
 #ifdef HAVE_POLL
 #  include <poll.h>
 
-/* The poll() emulation on OS/X doesn't handle fds=NULL, nfds=0,
+/* The poll() emulation on OS/X doesn't support device files,
  * so we prefer our own poll emulation.
  */
-#if defined(_POLL_EMUL_H_) || defined(BROKEN_POLL)
+#if defined(_POLL_EMUL_H_) || defined(NO_DEVICE_SUPPORT_IN_POLL)
 #undef HAVE_POLL
 #endif
 

@@ -301,8 +301,8 @@ glibconfig_conf.set('LT_CURRENT_MINUS_AGE', soversion)
 glib_conf.set('_GNU_SOURCE', 1)
 
 if host_system in ['windows', 'darwin']
-  # Poll doesn't work on devices on Windows, and macOS's poll() implementation is known to be broken
-  glib_conf.set('BROKEN_POLL', true)
+  # Poll doesn't work on devices on Windows and macOS.
+  glib_conf.set('NO_DEVICE_SUPPORT_IN_POLL', true)
 endif
 
 # Since we cannot use poll() on macOS, expand g_poll capacity by tuning select().
